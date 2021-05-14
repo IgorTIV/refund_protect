@@ -6,7 +6,7 @@ module RefundProtect
     class << self
       attr_accessor :vendor_id, :auth_token
 
-      attr_writer :host, :timeout, :logger_instance
+      attr_writer :host, :timeout, :logger_instance, :disable_real_requests
 
       def host
         @host ||= DEFAULT_HOST
@@ -18,6 +18,10 @@ module RefundProtect
 
       def logger_instance
         @logger_instance ||= Logger.new(STDOUT)
+      end
+
+      def disable_real_requests
+        @disable_real_requests ||= false
       end
     end
   end

@@ -4,6 +4,8 @@ module RefundProtect
   module BaseRequest
 
     def send_data
+      return if RefundProtect::Config.disable_real_requests
+
       options = {
         method: method,
         url: url,

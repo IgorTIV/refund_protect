@@ -10,7 +10,10 @@ module RefundProtect
 
     def sales(attributes)
       attributes.slice!(*Sales::ATTRIBUTES)
-      attributes[:products_attrs].each { |attrs| attrs.slice!(*Sales::PRODUCT_ATTRIBUTES) }
+
+      if attributes[:products_attrs].respond_to?(:each)
+        attributes[:products_attrs].each { |attrs| attrs.slice!(*Sales::PRODUCT_ATTRIBUTES) }
+      end
 
       Service.new(:sales, attributes).process
     end
