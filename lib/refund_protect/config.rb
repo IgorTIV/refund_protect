@@ -6,7 +6,7 @@ module RefundProtect
     class << self
       attr_accessor :vendor_id, :auth_token
 
-      attr_writer :host, :timeout, :logger_instance, :disable_real_requests
+      attr_writer :host, :timeout, :logger_instance, :disabled
 
       def host
         @host ||= DEFAULT_HOST
@@ -20,8 +20,8 @@ module RefundProtect
         @logger_instance ||= Logger.new(STDOUT)
       end
 
-      def disable_real_requests
-        @disable_real_requests ||= false
+      def disabled?
+        @disabled || [:host, :vendor_id, :auth_token].any? { |config| self.public_send(config).nil? || self.public_send(config).empty? }
       end
     end
   end

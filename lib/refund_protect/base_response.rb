@@ -15,7 +15,7 @@ module RefundProtect
     end
 
     def process
-      return success_response(true) if RefundProtect::Config.disable_real_requests
+      return success_response(true) if RefundProtect::Config.disabled?
 
       RefundProtect::Config.logger_instance.info("RefundProtect:RESPONSE Code: #{code}, Body: #{body}")
 

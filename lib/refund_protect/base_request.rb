@@ -4,7 +4,10 @@ module RefundProtect
   module BaseRequest
 
     def send_data
-      return if RefundProtect::Config.disable_real_requests
+      if RefundProtect::Config.disabled?
+         RefundProtect::Config.logger_instance.info("RefundProtect:REQUEST => Disabled")
+        return
+      end
 
       options = {
         method: method,
